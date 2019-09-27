@@ -2,8 +2,21 @@ const executaQuery = require("../database/queries");
 
 class Pet {
   lista() {
-    const sql = "SELECT * FROM Pets";
-    return executaQuery(sql);
+    const sql =
+      "SELECT p.*, c.id AS donoId,  c.nome as donoNome, c.cpf as donoCPF FROM Pets p INNER JOIN CLIENTES c ON c.id = p.donoId";
+    return executaQuery(sql).then(response =>
+      response.map(pet => ({
+        id: pet.id,
+        nome: pet.nome,
+        tipo: pet.tipo,
+        observacoes: pet.observacoes,
+        dono: {
+          id: pet.donoId,
+          nome: pet.donoNome,
+          cpf: pet.donoCpf
+        }
+      }))
+    );
   }
 
   buscaPorId(id) {

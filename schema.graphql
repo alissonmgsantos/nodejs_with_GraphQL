@@ -7,9 +7,9 @@ type Cliente {
 type Pet {
   id: ID!
   nome: String!
-  donoId: Int!
   tipo: String
   observacoes: String
+  dono: Cliente!
 }
 
 # Sempre que for adicionar, atualizar ou excluir será do tipo Mutation
