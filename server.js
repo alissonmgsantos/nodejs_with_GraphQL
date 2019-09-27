@@ -4,6 +4,7 @@ const Tabelas = require("./infraestrutura/database/tabelas");
 const Operations = require("./infraestrutura/operations");
 
 const Clientes = new Operations("cliente");
+const Pets = new Operations("pet");
 conexao.connect(erro => {
   if (erro) {
     console.log(erro);
@@ -18,12 +19,14 @@ const resolvers = {
   Query: {
     status: () => "Servidor rodando",
     clientes: () => Clientes.lista(),
-    cliente: (root, { id }) => Clientes.buscaPorId(id)
+    cliente: (root, { id }) => Clientes.buscaPorId(id),
+    pets: () => Pets.lista()
   },
   Mutation: {
     adicionarCliente: (root, params) => Clientes.adiciona(params),
     atualizarCliente: (root, params) => Clientes.atualiza(params),
-    deletarCliente: (root, { id }) => Clientes.deleta(id)
+    deletarCliente: (root, { id }) => Clientes.deleta(id),
+    adicionarPet: (root, params) => Pets.adiciona(params)
   }
 };
 const server = new GraphQLServer({
