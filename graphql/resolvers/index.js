@@ -1,7 +1,10 @@
-const cliente = require("./cliente");
-const pet = require("./pet");
+const path = require("path");
+const mergeGraphQLSchemas = require("merge-graphql-schemas");
 
-module.exports = {
-  ...cliente,
-  ...pet
-};
+const { fileLoader } = mergeGraphQLSchemas;
+
+const arquivos = path.join(__dirname, "./");
+
+const arquivosCarregados = fileLoader(arquivos);
+
+module.exports = arquivosCarregados;
