@@ -20,8 +20,17 @@ class Cliente {
   }
 
   buscaPorId(id) {
-    const sql = `SELECT * FROM Clientes WHERE id=${id}`;
-    return executaQuery(sql).then(response => response[0]);
+    const sql = `SELECT * FROM Clientes WHERE id=${id}; SELECT * FROM Pets WHERE donoId=${id}`;
+
+    return executaQuery(sql).then(dados => {
+      const cliente = dados[0][0];
+      const pets = dados[1];
+
+      return {
+        ...cliente,
+        pets
+      };
+    });
   }
 
   adiciona(item) {
