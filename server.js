@@ -2,6 +2,7 @@ const { GraphQLServer } = require("graphql-yoga");
 const conexao = require("./infraestrutura/conexao");
 const Tabelas = require("./infraestrutura/database/tabelas");
 const resolvers = require("./graphql/resolvers");
+const typeDefs = require("./graphql/schemas");
 conexao.connect(erro => {
   if (erro) {
     console.log(erro);
@@ -14,7 +15,7 @@ conexao.connect(erro => {
 
 const server = new GraphQLServer({
   resolvers: resolvers,
-  typeDefs: "./schema.graphql"
+  typeDefs: typeDefs
 });
 
 server.start(() => console.log("Servidor ouvindo"));
