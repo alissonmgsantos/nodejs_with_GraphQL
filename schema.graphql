@@ -6,8 +6,9 @@ type Cliente {
 
 # Sempre que for adicionar, atualizar ou excluir será do tipo Mutation
 type Mutation {
-  #Adicionará um cliente e retornará
   adicionarCliente(nome: String!, cpf: String!): Cliente!
+  atualizarCliente(id: ID!, nome: String!, cpf: String!): Cliente!
+  deletarCliente(id: ID!): ID!
 }
 
 type Query {
