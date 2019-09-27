@@ -20,8 +20,21 @@ class Pet {
   }
 
   buscaPorId(id) {
-    const sql = `SELECT * FROM Pets WHERE id=${parseInt(id)}`;
-    return executaQuery(sql);
+    const sql = `SELECT p.id, p.nome, p.tipo, p.observacoes, c.id AS donoId, c.nome AS donoNome, c.cpf AS donoCpf FROM Pets p INNER JOIN Clientes c ON c.id = p.donoId WHERE p.id =${parseInt(
+      id
+    )}`;
+
+    return executaQuery(sql).then(pets => ({
+      id: pets[0].id,
+      nome: pets[0].nome,
+      tipo: pets[0].tipo,
+      observacoes: pets[0].observacoes,
+      dono: {
+        id: pets[0].donoId,
+        nome: pets[0].donoNome,
+        cpf: pets[0].donoCpf
+      }
+    }));
   }
 
   adiciona(item) {
